@@ -27,12 +27,11 @@ namespace AzureStorageSync
 
 AzureStorageSync [localPath] [remotePath] -c
 
-    solutionPath       The directory containing the solution with the pdb files.
-    -u [url]           Url to remote git repository.
-    -c [config]        Name of the configuration, default value is 'Release'.
-    -b [branch]        Name of the branch to use on the remote repository.
-    -l [file]          The log file to write to.
-    -s [shaHash]       The SHA-1 hash of the commit.
+    localPath              The local base directory.
+    remotePath             The remote base directory where the first 'directory' will be treated as blob container name.
+    -u [url]               Url to remote git repository.
+    -c [connectionString]  The Azure storage connection string.
+    -l [file]              The log file to write to.
 ";
             writer(message);
         }

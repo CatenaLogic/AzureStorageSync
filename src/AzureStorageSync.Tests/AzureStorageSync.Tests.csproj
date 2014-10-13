@@ -90,6 +90,7 @@
     <Compile Include="ArgumentParserFacts.cs" />
     <Compile Include="ContextFacts.cs" />
     <Compile Include="Extensions\ContextExtensionsFacts.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="GlobalInitialization.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

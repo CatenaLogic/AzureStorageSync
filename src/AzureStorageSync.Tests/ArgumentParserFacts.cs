@@ -53,6 +53,14 @@ namespace AzureStorageSync.Test
         }
 
         [TestCase]
+        public void CorrectlyParsesConnectionString()
+        {
+            var context = ArgumentParser.ParseArguments("localDirectory remoteDirectory -c connectionString");
+
+            Assert.AreEqual("connectionString", context.ConnectionString);
+        }
+
+        [TestCase]
         public void ThrowsExceptionForInvalidNumberOfArguments()
         {
             ExceptionTester.CallMethodAndExpectException<AzureStorageSyncException>(() => ArgumentParser.ParseArguments("localDirectory -l logFilePath extraArg"));
