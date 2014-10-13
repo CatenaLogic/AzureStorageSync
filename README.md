@@ -14,4 +14,17 @@ This library is created because I prefer not to mess around with powershell. Thi
 
 # How to use
 
-TODO: Describe
+To use this tool, use the following command line:
+
+	AzureStorageSync.exe [localDirectory] [remoteDirectory] -c [connectionString]
+
+For example:
+
+	AzureStorageSync.exe C:\TestDirectory /testcontainer/testdirectory -c DefaultEndpointsProtocol=https;AccountName=youraccountname;AccountKey=youraccountkey
+
+The Azure container will automatically be determined from the remote directory:
+
+The string '/testcontainer/testdirectory/subdirectory' will result in the following information:
+
+* Container name: 'testcontainer'
+* Root directory 'testdirectory/subdirectory'
