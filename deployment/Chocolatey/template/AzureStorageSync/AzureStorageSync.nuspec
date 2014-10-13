@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>AzureStorageSync</id>
+    <version>[VERSION]</version>
+	<title>AzureStorageSync</title>
+    <authors>GeertvanHorrik</authors>
+	
+	<description>
+	  Syncs local files to an Azure storage account.
+	</description>
+    
+	<summary>
+	</summary>
+	
+	<tags>azure sync synchronize storage file files directory directories</tags>
+	
+	<language>en-US</language>
+	<projectUrl>https://github.com/CatenaLogic/AzureStorageSync/</projectUrl>	
+	<licenseUrl>https://github.com/CatenaLogic/AzureStorageSync/blob/develop/LICENSE</licenseUrl>
+	<iconUrl>https://raw.githubusercontent.com/CatenaLogic/AzureStorageSync/develop/design/logo/logo_64.png</iconUrl>
+  </metadata>
+</package>

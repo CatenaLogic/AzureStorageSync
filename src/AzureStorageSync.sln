@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureStorageSync", "AzureStorageSync\AzureStorageSync.csproj", "{792D2E81-82EC-4F4A-B166-129BFE2023D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureStorageSync.Tests", "AzureStorageSync.Tests\AzureStorageSync.Tests.csproj", "{8C90C5E1-B7FD-40FF-B126-0EDD89D17499}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{992B3722-7268-48E3-8E59-71CC6D9C43CD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "misc", "misc", "{EEF8EAAC-AB4F-4CF4-8D8E-9041A70C05C2}"
+	ProjectSection(SolutionItems) = preProject
+		AzureStorageSync.sln.DotSettings = AzureStorageSync.sln.DotSettings
+		nuget.config = nuget.config
+		SolutionAssemblyInfo.cs = SolutionAssemblyInfo.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{DAAF47AA-DBEE-4874-ADF2-B8CB79D18004}"
+	ProjectSection(SolutionItems) = preProject
+		..\lib\repositories.config = ..\lib\repositories.config
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{792D2E81-82EC-4F4A-B166-129BFE2023D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{792D2E81-82EC-4F4A-B166-129BFE2023D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{792D2E81-82EC-4F4A-B166-129BFE2023D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{792D2E81-82EC-4F4A-B166-129BFE2023D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C90C5E1-B7FD-40FF-B126-0EDD89D17499}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C90C5E1-B7FD-40FF-B126-0EDD89D17499}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C90C5E1-B7FD-40FF-B126-0EDD89D17499}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C90C5E1-B7FD-40FF-B126-0EDD89D17499}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{792D2E81-82EC-4F4A-B166-129BFE2023D5} = {992B3722-7268-48E3-8E59-71CC6D9C43CD}
+		{8C90C5E1-B7FD-40FF-B126-0EDD89D17499} = {992B3722-7268-48E3-8E59-71CC6D9C43CD}
+	EndGlobalSection
+EndGlobal
