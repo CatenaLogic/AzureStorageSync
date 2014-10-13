@@ -14,8 +14,8 @@ namespace AzureStorageSync.Tests
         [TestFixture]
         public class TheGetContainerNameMethod
         {
-            [TestCase("mycontainer/myfile.txt", "mycontainer")]
-            [TestCase("mycontainer/mydirectory/myfile.txt", "mycontainer")]
+            [TestCase("MyContainer/myfile.txt", "mycontainer")]
+            [TestCase("MyContainer/mydirectory/myfile.txt", "mycontainer")]
             public void ReturnsValidContainer(string input, string expectedOutput)
             {
                 var containerName = input.GetContainerName();

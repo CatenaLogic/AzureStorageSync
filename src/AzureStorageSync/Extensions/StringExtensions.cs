@@ -25,7 +25,7 @@ namespace AzureStorageSync
 
             containerName = containerName.RemoveSurroundingSlashes();
 
-            return containerName;
+            return containerName.ToLower();
         }
 
         public static string GetDirectoryName(this string remoteFileName)
