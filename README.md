@@ -22,9 +22,7 @@ For example:
 
 	AzureStorageSync.exe C:\TestDirectory /testcontainer/testdirectory -c DefaultEndpointsProtocol=https;AccountName=youraccountname;AccountKey=youraccountkey
 
-The Azure container will automatically be determined from the remote directory:
+The Azure container will automatically be determined from the remote directory. The string */testcontainer/testdirectory/subdirectory* will result in the following information:
 
-The string '/testcontainer/testdirectory/subdirectory' will result in the following information:
-
-* Container name: 'testcontainer'
-* Root directory 'testdirectory/subdirectory'
+* Container name: *testcontainer*
+* Root directory *testdirectory/subdirectory*
