@@ -31,8 +31,10 @@ namespace AzureStorageSync.Azure
             var descriptors = new List<FileDescriptor>();
 
             // Local => Remote
-            foreach (var fileName in Directory.GetFiles(_context.LocalDirectory, "*.*", SearchOption.AllDirectories))
+            var files = Directory.GetFiles(_context.LocalDirectory, "*.*", SearchOption.AllDirectories);
+            foreach (var fileName in files)
             {
+                // Note that this method makes the path lower-case, we might need to fix that in the future
                 var relativePath = Catel.IO.Path.GetRelativePath(fileName, _context.LocalDirectory);
                 var remoteFileName = Path.Combine(_context.RemoteDirectory, relativePath).GetCloudStorageCompatibleString();
 
