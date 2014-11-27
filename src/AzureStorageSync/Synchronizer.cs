@@ -8,6 +8,7 @@
 namespace AzureStorageSync
 {
     using System;
+    using System.Threading.Tasks;
     using Azure;
     using Catel;
     using Catel.Logging;
@@ -17,14 +18,14 @@ namespace AzureStorageSync
     {
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
-        public static int Sync(Context context)
+        public static async Task<int> Sync(Context context)
         {
             Argument.IsNotNull(() => context);
 
             var storageAccount = CloudStorageAccount.Parse(context.ConnectionString);
 
             var differenceCalculator = new DifferenceCalculator(context, storageAccount);
-            var fileDescriptors = differenceCalculator.GetFileDescriptors();
+            var fileDescriptors = await differenceCalculator.GetFileDescriptors();
             if (fileDescriptors.Count == 0)
             {
                 Log.Info("Found no differences, synchronization is not required");

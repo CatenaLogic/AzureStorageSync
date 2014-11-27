@@ -38,13 +38,14 @@ namespace AzureStorageSync
                     return 0;
                 }
 
-                var result = Synchronizer.Sync(context);
+                var task = Synchronizer.Sync(context);
+                task.Wait();
 
 #if DEBUG
                 WaitForKeyPress();
 #endif
 
-                return result;
+                return task.Result;
             }
             catch (Exception ex)
             {

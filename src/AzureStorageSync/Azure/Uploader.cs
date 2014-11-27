@@ -10,6 +10,7 @@ namespace AzureStorageSync.Azure
     using Catel;
     using Catel.Logging;
     using Microsoft.WindowsAzure.Storage;
+    using Microsoft.WindowsAzure.Storage.Blob;
 
     public class Uploader
     {
@@ -34,7 +35,8 @@ namespace AzureStorageSync.Azure
 
             using (var fileStream = System.IO.File.OpenRead(fileDescriptor.LocalFileName))
             {
-                blob.UploadFromStream(fileStream);
+                blob.Properties.ContentMD5 = fileDescriptor.LocalFileHash;
+                blob.UploadFromStream(fileStream, options: new BlobRequestOptions());
             }
         }
     }

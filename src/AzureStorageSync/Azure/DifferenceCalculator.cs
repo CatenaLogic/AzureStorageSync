@@ -7,13 +7,19 @@
 
 namespace AzureStorageSync.Azure
 {
+    using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq.Expressions;
+    using System.Threading.Tasks;
     using Catel;
+    using Catel.Logging;
     using Microsoft.WindowsAzure.Storage;
 
     public class DifferenceCalculator
     {
+        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+
         private readonly Context _context;
         private readonly CloudStorageAccount _storageAccount;
 
@@ -26,7 +32,7 @@ namespace AzureStorageSync.Azure
             _storageAccount = storageAccount;
         }
 
-        public List<FileDescriptor> GetFileDescriptors()
+        public async Task<List<FileDescriptor>> GetFileDescriptors()
         {
             var descriptors = new List<FileDescriptor>();
 
@@ -38,9 +44,11 @@ namespace AzureStorageSync.Azure
                 var relativePath = Catel.IO.Path.GetRelativePath(fileName, _context.LocalDirectory);
                 var remoteFileName = Path.Combine(_context.RemoteDirectory, relativePath).GetCloudStorageCompatibleString();
 
-                if (!RemoteFileExists(remoteFileName))
+                var localHash = Md5HashHelper.GetMd5Hash(fileName);
+                if (!await RemoteFileExists(remoteFileName, localHash))
                 {
-                    descriptors.Add(new FileDescriptor(fileName, remoteFileName, FileAction.Upload));
+                    var fileDescriptor = new FileDescriptor(fileName, localHash, remoteFileName, FileAction.Upload);
+                    descriptors.Add(fileDescriptor);
                 }
             }
 
@@ -50,7 +58,7 @@ namespace AzureStorageSync.Azure
             return descriptors;
         }
 
-        private bool RemoteFileExists(string remoteFileName)
+        private async Task<bool> RemoteFileExists(string remoteFileName, string localHash)
         {
             var blob = _storageAccount.GetBlob(remoteFileName);
             if (!blob.Exists())
@@ -58,11 +66,19 @@ namespace AzureStorageSync.Azure
                 return false;
             }
 
-            // As long as we cannot calculate the md5 hash, we need to return false every time
-            return false;
+            try
+            {
+                await blob.FetchAttributesAsync();
 
-            //blob.FetchAttributes();
-            //return true;
+                var remoteHash = blob.Properties.ContentMD5;
+
+                return string.Equals(localHash, remoteHash, StringComparison.OrdinalIgnoreCase);
+            }
+            catch (Exception ex)
+            {
+                Log.Warning(ex, "Failed to fetch attributes, assuming file '{0}' does not exist", remoteFileName);
+                return false;
+            }
         }
     }
 }

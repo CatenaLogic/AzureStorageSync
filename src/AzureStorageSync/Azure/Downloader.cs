@@ -10,7 +10,6 @@ namespace AzureStorageSync.Azure
     using Catel;
     using Catel.Logging;
     using Microsoft.WindowsAzure.Storage;
-    using Microsoft.WindowsAzure.Storage.Blob;
 
     public class Downloader
     {
