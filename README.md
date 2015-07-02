@@ -1,6 +1,8 @@
 AzureStorageSync
 ==========
 
+[![Join the chat at https://gitter.im/CatenaLogic/AzureStorageSync](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/CatenaLogic/AzureStorageSync?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ![AzureStorageSync](design/logo/logo_64.png)
 
 AzureStorageSync let's users synchronize a local directory with an Azure storage container via the command line.
