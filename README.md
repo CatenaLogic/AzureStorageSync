@@ -3,6 +3,13 @@ AzureStorageSync
 
 [![Join the chat at https://gitter.im/CatenaLogic/AzureStorageSync](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/CatenaLogic/AzureStorageSync?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
+![License](https://img.shields.io/github/license/catenalogic/azurestoragesync.svg)
+![NuGet downloads](https://img.shields.io/nuget/dt/azurestoragesync.svg)
+![Version](https://img.shields.io/nuget/v/azurestoragesync.svg)
+![Pre-release version](https://img.shields.io/nuget/vpre/azurestoragesync.svg)
+![Chocolatey count](https://img.shields.io/chocolatey/dt/azurestoragesync.svg)
+![Chocolatey version](https://img.shields.io/chocolatey/v/azurestoragesync.svg)
+
 ![AzureStorageSync](design/logo/logo_64.png)
 
 AzureStorageSync let's users synchronize a local directory with an Azure storage container via the command line.
