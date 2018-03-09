@@ -76,6 +76,10 @@ namespace AzureStorageSync
                 input = string.Format("/{0}", input);
             }
 
+            // Make lowercase: this might break it for other consumers of this app, but it looks like
+            // everything for us is lower-case in azure
+            input = input.ToLower();
+
             return input;
         }
 
