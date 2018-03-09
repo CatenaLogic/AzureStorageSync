@@ -40,10 +40,8 @@ namespace AzureStorageSync.Azure
         {
             var descriptors = new List<FileDescriptor>();
 
-            //var taskCreators = new List<Func<Task<FileDescriptor>>>();
-            //var tasks = new List<Task<FileDescriptor>>();
+            Log.Info("Calculating local => remote differences");
 
-            // Local => Remote
             var files = Directory.GetFiles(_context.LocalDirectory, "*.*", SearchOption.AllDirectories);
             foreach (var fileName in files)
             {
@@ -56,26 +54,9 @@ namespace AzureStorageSync.Azure
                 //taskCreators.Add(() => CalculateMd5AndCompareWithRemoteAsync(fileName));
             }
 
-            // Remote => Local
+            //Log.Info("Calculating remote => local differences");
+            
             // TODO: Not yet implemented
-
-            // Multithread (do we want a max number of threads?, see progress of https://github.com/Catel/Catel/issues/1168)
-            //foreach (var taskCreator in taskCreators)
-            //{
-            //    var task = TaskHelper.Run(taskCreator);
-            //    tasks.Add(task);
-            //}
-
-            //await Task.WhenAll(tasks);
-
-            //foreach (var task in tasks)
-            //{
-            //    var fileDescription = task.Result;
-            //    if (fileDescription != null)
-            //    {
-            //        descriptors.Add(fileDescription);
-            //    }
-            //}
 
             return descriptors;
         }
