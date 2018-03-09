@@ -13,7 +13,9 @@ namespace AzureStorageSync.Azure
     using System.Linq.Expressions;
     using System.Threading.Tasks;
     using Catel;
+    using Catel.Collections;
     using Catel.Logging;
+    using MethodTimer;
     using Microsoft.WindowsAzure.Storage;
 
     public class DifferenceCalculator
@@ -32,9 +34,12 @@ namespace AzureStorageSync.Azure
             _storageAccount = storageAccount;
         }
 
-        public async Task<List<FileDescriptor>> GetFileDescriptors()
+        [Time]
+        public async Task<List<FileDescriptor>> GetFileDescriptorsAsync()
         {
             var descriptors = new List<FileDescriptor>();
+
+            var tasks = new List<Task<FileDescriptor>>();
 
             // Local => Remote
             var files = Directory.GetFiles(_context.LocalDirectory, "*.*", SearchOption.AllDirectories);
@@ -45,20 +50,42 @@ namespace AzureStorageSync.Azure
                 var remoteFileName = Path.Combine(_context.RemoteDirectory, relativePath).GetCloudStorageCompatibleString();
 
                 var localHash = Md5HashHelper.GetMd5Hash(fileName);
-                if (!await RemoteFileExists(remoteFileName, localHash))
-                {
-                    var fileDescriptor = new FileDescriptor(fileName, localHash, remoteFileName, FileAction.Upload);
-                    descriptors.Add(fileDescriptor);
-                }
+
+                tasks.Add(GetFileDescriptionAsync(fileName, remoteFileName, localHash));
             }
 
             // Remote => Local
             // TODO: Not yet implemented
 
+            await Task.WhenAll(tasks);
+
+            foreach (var task in tasks)
+            {
+                var fileDescription = task.Result;
+                if (fileDescription != null)
+                {
+                    descriptors.Add(fileDescription);
+                }
+            }
+
             return descriptors;
         }
 
-        private async Task<bool> RemoteFileExists(string remoteFileName, string localHash)
+#if DEBUG
+        [Time("File: {fileName}")]
+#endif
+        private async Task<FileDescriptor> GetFileDescriptionAsync(string fileName, string remoteFileName, string localHash)
+        {
+            if (!await RemoteFileExistsAsync(remoteFileName, localHash))
+            {
+                var fileDescriptor = new FileDescriptor(fileName, localHash, remoteFileName, FileAction.Upload);
+                return fileDescriptor;
+            }
+
+            return null;
+        }
+
+        private async Task<bool> RemoteFileExistsAsync(string remoteFileName, string localHash)
         {
             var blob = _storageAccount.GetBlob(remoteFileName);
             if (!blob.Exists())

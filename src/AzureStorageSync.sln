@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureStorageSync", "AzureStorageSync\AzureStorageSync.csproj", "{792D2E81-82EC-4F4A-B166-129BFE2023D5}"
 EndProject
@@ -12,13 +12,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "misc", "misc", "{EEF8EAAC-AB4F-4CF4-8D8E-9041A70C05C2}"
 	ProjectSection(SolutionItems) = preProject
 		AzureStorageSync.sln.DotSettings = AzureStorageSync.sln.DotSettings
+		MethodTimeLogger.cs = MethodTimeLogger.cs
 		nuget.config = nuget.config
 		SolutionAssemblyInfo.cs = SolutionAssemblyInfo.cs
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{DAAF47AA-DBEE-4874-ADF2-B8CB79D18004}"
-	ProjectSection(SolutionItems) = preProject
-		..\lib\repositories.config = ..\lib\repositories.config
 	EndProjectSection
 EndProject
 Global
@@ -42,5 +38,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{792D2E81-82EC-4F4A-B166-129BFE2023D5} = {992B3722-7268-48E3-8E59-71CC6D9C43CD}
 		{8C90C5E1-B7FD-40FF-B126-0EDD89D17499} = {992B3722-7268-48E3-8E59-71CC6D9C43CD}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5322C9B7-101B-49BB-9428-B5C1576B1E59}
 	EndGlobalSection
 EndGlobal

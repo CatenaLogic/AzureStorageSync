@@ -7,8 +7,10 @@
 
 namespace AzureStorageSync.Azure
 {
+    using System.Threading.Tasks;
     using Catel;
     using Catel.Logging;
+    using MethodTimer;
     using Microsoft.WindowsAzure.Storage;
 
     public class Downloader
@@ -24,7 +26,8 @@ namespace AzureStorageSync.Azure
             _storageAccount = storageAccount;
         }
 
-        public void Download(FileDescriptor fileDescriptor)
+        [Time("File: {fileDescriptor}")]
+        public async Task DownloadAsync(FileDescriptor fileDescriptor)
         {
             Argument.IsNotNull(() => fileDescriptor);
 

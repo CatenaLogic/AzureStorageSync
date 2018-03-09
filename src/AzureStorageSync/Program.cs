@@ -38,7 +38,7 @@ namespace AzureStorageSync
                     return 0;
                 }
 
-                var task = Synchronizer.Sync(context);
+                var task = Synchronizer.SyncAsync(context);
                 task.Wait();
 
 #if DEBUG

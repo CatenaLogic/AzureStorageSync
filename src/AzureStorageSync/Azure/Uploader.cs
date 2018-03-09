@@ -7,8 +7,10 @@
 
 namespace AzureStorageSync.Azure
 {
+    using System.Threading.Tasks;
     using Catel;
     using Catel.Logging;
+    using MethodTimer;
     using Microsoft.WindowsAzure.Storage;
     using Microsoft.WindowsAzure.Storage.Blob;
 
@@ -25,7 +27,8 @@ namespace AzureStorageSync.Azure
             _storageAccount = storageAccount;
         }
 
-        public void Upload(FileDescriptor fileDescriptor)
+        [Time("File: {fileDescriptor}")]
+        public async Task UploadAsync(FileDescriptor fileDescriptor)
         {
             Argument.IsNotNull(() => fileDescriptor);
 
