@@ -15,6 +15,7 @@ namespace AzureStorageSync.Azure
     using Catel;
     using Catel.Collections;
     using Catel.Logging;
+    using Catel.Threading;
     using MethodTimer;
     using Microsoft.WindowsAzure.Storage;
 
@@ -39,40 +40,63 @@ namespace AzureStorageSync.Azure
         {
             var descriptors = new List<FileDescriptor>();
 
-            var tasks = new List<Task<FileDescriptor>>();
+            //var taskCreators = new List<Func<Task<FileDescriptor>>>();
+            //var tasks = new List<Task<FileDescriptor>>();
 
             // Local => Remote
             var files = Directory.GetFiles(_context.LocalDirectory, "*.*", SearchOption.AllDirectories);
             foreach (var fileName in files)
             {
-                // Note that this method makes the path lower-case, we might need to fix that in the future
-                var relativePath = Catel.IO.Path.GetRelativePath(fileName, _context.LocalDirectory);
-                var remoteFileName = Path.Combine(_context.RemoteDirectory, relativePath).GetCloudStorageCompatibleString();
+                var fileDescriptor = await CalculateMd5AndCompareWithRemoteAsync(fileName);
+                if (fileDescriptor != null)
+                {
+                    descriptors.Add(fileDescriptor);
+                }
 
-                var localHash = Md5HashHelper.GetMd5Hash(fileName);
-
-                tasks.Add(GetFileDescriptionAsync(fileName, remoteFileName, localHash));
+                //taskCreators.Add(() => CalculateMd5AndCompareWithRemoteAsync(fileName));
             }
 
             // Remote => Local
             // TODO: Not yet implemented
 
-            await Task.WhenAll(tasks);
+            // Multithread (do we want a max number of threads?, see progress of https://github.com/Catel/Catel/issues/1168)
+            //foreach (var taskCreator in taskCreators)
+            //{
+            //    var task = TaskHelper.Run(taskCreator);
+            //    tasks.Add(task);
+            //}
 
-            foreach (var task in tasks)
-            {
-                var fileDescription = task.Result;
-                if (fileDescription != null)
-                {
-                    descriptors.Add(fileDescription);
-                }
-            }
+            //await Task.WhenAll(tasks);
+
+            //foreach (var task in tasks)
+            //{
+            //    var fileDescription = task.Result;
+            //    if (fileDescription != null)
+            //    {
+            //        descriptors.Add(fileDescription);
+            //    }
+            //}
 
             return descriptors;
         }
 
 #if DEBUG
         [Time("File: {fileName}")]
+#endif
+        private async Task<FileDescriptor> CalculateMd5AndCompareWithRemoteAsync(string fileName)
+        {
+            // Note that this method makes the path lower-case, we might need to fix that in the future
+            var relativePath = Catel.IO.Path.GetRelativePath(fileName, _context.LocalDirectory);
+            var remoteFileName = Path.Combine(_context.RemoteDirectory, relativePath).GetCloudStorageCompatibleString();
+
+            var localHash = await Md5HashHelper.GetMd5HashAsync(fileName);
+
+            var fileDescriptor = await GetFileDescriptionAsync(fileName, remoteFileName, localHash);
+            return fileDescriptor;
+        }
+
+#if DEBUG
+        //[Time("File: {fileName}")]
 #endif
         private async Task<FileDescriptor> GetFileDescriptionAsync(string fileName, string remoteFileName, string localHash)
         {
@@ -99,7 +123,8 @@ namespace AzureStorageSync.Azure
 
                 var remoteHash = blob.Properties.ContentMD5;
 
-                return string.Equals(localHash, remoteHash, StringComparison.OrdinalIgnoreCase);
+                var exists = string.Equals(localHash, remoteHash, StringComparison.OrdinalIgnoreCase);
+                return exists;
             }
             catch (Exception ex)
             {

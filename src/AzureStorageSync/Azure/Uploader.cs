@@ -39,7 +39,8 @@ namespace AzureStorageSync.Azure
             using (var fileStream = System.IO.File.OpenRead(fileDescriptor.LocalFileName))
             {
                 blob.Properties.ContentMD5 = fileDescriptor.LocalFileHash;
-                blob.UploadFromStream(fileStream, options: new BlobRequestOptions());
+
+                await blob.UploadFromStreamAsync(fileStream);
             }
         }
     }
