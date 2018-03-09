@@ -8,7 +8,7 @@
 using Catel.Logging;
 using NUnit.Framework;
 
-[SetUpFixture]
+//[SetUpFixture]
 public class GlobalInitialization
 {
     [SetUp]
