@@ -32,7 +32,7 @@ namespace AzureStorageSync
 
             if (commandLineArguments.Count == 0)
             {
-                Log.ErrorAndThrowException<AzureStorageSyncException>("Invalid number of arguments");
+                throw Log.ErrorAndCreateException<AzureStorageSyncException>("Invalid number of arguments");
             }
 
             var firstArgument = commandLineArguments.First();
@@ -44,7 +44,7 @@ namespace AzureStorageSync
 
             if (commandLineArguments.Count < 3)
             {
-                Log.ErrorAndThrowException<AzureStorageSyncException>("Invalid number of arguments");
+                throw Log.ErrorAndCreateException<AzureStorageSyncException>("Invalid number of arguments");
             }
 
             context.LocalDirectory = commandLineArguments[0];
@@ -71,7 +71,7 @@ namespace AzureStorageSync
                     continue;
                 }
 
-                Log.ErrorAndThrowException<AzureStorageSyncException>("Could not parse command line parameter '{0}'.", name);
+                throw Log.ErrorAndCreateException<AzureStorageSyncException>("Could not parse command line parameter '{0}'.", name);
             }
 
             return context;
@@ -96,7 +96,7 @@ namespace AzureStorageSync
         {
             if (namedArguments.Count.IsOdd())
             {
-                Log.ErrorAndThrowException<AzureStorageSyncException>("Could not parse arguments: '{0}'.", string.Join(" ", commandLineArguments));
+                throw Log.ErrorAndCreateException<AzureStorageSyncException>("Could not parse arguments: '{0}'.", string.Join(" ", commandLineArguments));
             }
         }
 

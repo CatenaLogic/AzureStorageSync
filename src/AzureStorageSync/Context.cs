@@ -32,17 +32,17 @@ namespace AzureStorageSync
         {
             if (string.IsNullOrEmpty(LocalDirectory))
             {
-                Log.ErrorAndThrowException<AzureStorageSyncException>("Local directory is missing");
+                throw Log.ErrorAndCreateException<AzureStorageSyncException>("Local directory is missing");
             }
 
             if (string.IsNullOrEmpty(RemoteDirectory))
             {
-                Log.ErrorAndThrowException<AzureStorageSyncException>("Remote directory is missing");
+                throw Log.ErrorAndCreateException<AzureStorageSyncException>("Remote directory is missing");
             }
 
             if (string.IsNullOrEmpty(ConnectionString))
             {
-                Log.ErrorAndThrowException<AzureStorageSyncException>("Connection string name is missing");
+                throw Log.ErrorAndCreateException<AzureStorageSyncException>("Connection string name is missing");
             }
         }
     }
