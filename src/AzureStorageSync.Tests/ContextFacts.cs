@@ -7,7 +7,8 @@
 
 namespace AzureStorageSync.Test
 {
-    using Catel.Test;
+    using Catel;
+    using Catel.Tests;
     using NUnit.Framework;
 
     public class ContextFacts
