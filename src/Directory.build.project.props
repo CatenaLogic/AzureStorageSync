@@ -4,10 +4,10 @@
   -->
 
   <PropertyGroup>
-    <Authors>geertvanhorrik</Authors>
+    <Authors>catenalogic</Authors>
     <PackageIconUrl>https://github.com/CatenaLogic/AzureStorageSync/raw/master/packages/logo.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/CatenaLogic/AzureStorageSync</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/CatenaLogic/AzureStorageSync/blob/develop/LICENSE</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/CatenaLogic/AzureStorageSync</RepositoryUrl>
   </PropertyGroup>
    
