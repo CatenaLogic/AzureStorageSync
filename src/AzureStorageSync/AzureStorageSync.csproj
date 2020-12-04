@@ -41,7 +41,7 @@
     <PackageReference Include="Microsoft.WindowsAzure.ConfigurationManager" Version="3.2.3" />
     <PackageReference Include="ModuleInit.Fody" Version="2.1.1" PrivateAssets="all" />
     <PackageReference Include="Obsolete.Fody" Version="5.2.1" PrivateAssets="all" />
-    <PackageReference Include="Orc.FileSystem" Version="4.0.0" PrivateAssets="all" />
+    <PackageReference Include="Orc.FileSystem" Version="4.1.1" PrivateAssets="all" />
     <PackageReference Include="WindowsAzure.Storage" Version="9.3.3" PrivateAssets="all" />
   </ItemGroup>
 
