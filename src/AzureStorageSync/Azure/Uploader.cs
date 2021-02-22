@@ -34,7 +34,7 @@ namespace AzureStorageSync.Azure
 
             Log.Info("Uploading '{0}'", fileDescriptor);
 
-            var blob = _storageAccount.GetBlob(fileDescriptor.RemoteFileName);
+            var blob = await _storageAccount.GetBlobAsync(fileDescriptor.RemoteFileName);
 
             using (var fileStream = System.IO.File.OpenRead(fileDescriptor.LocalFileName))
             {

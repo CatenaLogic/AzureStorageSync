@@ -92,8 +92,8 @@ namespace AzureStorageSync.Azure
 
         private async Task<bool> RemoteFileExistsAsync(string remoteFileName, string localHash)
         {
-            var blob = _storageAccount.GetBlob(remoteFileName);
-            if (!blob.Exists())
+            var blob = await _storageAccount.GetBlobAsync(remoteFileName);
+            if (!await blob.ExistsAsync())
             {
                 return false;
             }

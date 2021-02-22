@@ -7,6 +7,7 @@
 
 namespace AzureStorageSync
 {
+    using System.Threading.Tasks;
     using Catel;
     using Catel.Logging;
     using Microsoft.WindowsAzure.Storage;
@@ -16,7 +17,7 @@ namespace AzureStorageSync
     {
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
-        public static CloudBlockBlob GetBlob(this CloudStorageAccount storageAccount, string path)
+        public static async Task<CloudBlockBlob> GetBlobAsync(this CloudStorageAccount storageAccount, string path)
         {
             Argument.IsNotNull(() => storageAccount);
             Argument.IsNotNullOrWhitespace(() => path);
@@ -28,14 +29,14 @@ namespace AzureStorageSync
             var blobName = path.GetBlobName();
 
             var container = blobClient.GetContainerReference(containerName);
-            if (!container.Exists())
+            if (!await container.ExistsAsync())
             {
                 Log.Info("Creating container '{0}'", container);
 
-                container.CreateIfNotExists(BlobContainerPublicAccessType.Container);
+                await container.CreateIfNotExistsAsync();
             }
 
-            container.SetPermissions(new BlobContainerPermissions
+            await container.SetPermissionsAsync(new BlobContainerPermissions
             {
                 PublicAccess = BlobContainerPublicAccessType.Blob
             });
