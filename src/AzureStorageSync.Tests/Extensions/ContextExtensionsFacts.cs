@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 
-namespace AzureStorageSync.Test.Extensions
+namespace AzureStorageSync.Test
 {
     using NUnit.Framework;
 

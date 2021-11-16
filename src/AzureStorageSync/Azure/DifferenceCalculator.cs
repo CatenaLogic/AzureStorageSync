@@ -46,7 +46,7 @@ namespace AzureStorageSync.Azure
             foreach (var fileName in files)
             {
                 var fileDescriptor = await CalculateMd5AndCompareWithRemoteAsync(fileName);
-                if (fileDescriptor != null)
+                if (fileDescriptor is not null)
                 {
                     descriptors.Add(fileDescriptor);
                 }
