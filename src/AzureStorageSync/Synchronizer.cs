@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Synchronizer.cs" company="CatenaLogic">
-//   Copyright (c) 2014 - 2014 CatenaLogic. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace AzureStorageSync
+﻿namespace AzureStorageSync
 {
     using System;
     using System.Collections.Generic;
@@ -21,7 +14,7 @@ namespace AzureStorageSync
 
         public static async Task<int> SyncAsync(Context context)
         {
-            Argument.IsNotNull(() => context);
+            ArgumentNullException.ThrowIfNull(context);
 
             var storageAccount = CloudStorageAccount.Parse(context.ConnectionString);
 

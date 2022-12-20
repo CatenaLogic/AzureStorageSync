@@ -1,18 +1,11 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Uploader.cs" company="CatenaLogic">
-//   Copyright (c) 2014 - 2014 CatenaLogic. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace AzureStorageSync.Azure
+﻿namespace AzureStorageSync.Azure
 {
+    using System;
     using System.Threading.Tasks;
     using Catel;
     using Catel.Logging;
     using MethodTimer;
     using Microsoft.WindowsAzure.Storage;
-    using Microsoft.WindowsAzure.Storage.Blob;
 
     public class Uploader
     {
@@ -22,7 +15,7 @@ namespace AzureStorageSync.Azure
 
         public Uploader(CloudStorageAccount storageAccount)
         {
-            Argument.IsNotNull(() => storageAccount);
+            ArgumentNullException.ThrowIfNull(storageAccount);
 
             _storageAccount = storageAccount;
         }
@@ -30,7 +23,7 @@ namespace AzureStorageSync.Azure
         [Time("File: {fileDescriptor}")]
         public async Task UploadAsync(FileDescriptor fileDescriptor)
         {
-            Argument.IsNotNull(() => fileDescriptor);
+            ArgumentNullException.ThrowIfNull(fileDescriptor);
 
             Log.Info("Uploading '{0}'", fileDescriptor);
 

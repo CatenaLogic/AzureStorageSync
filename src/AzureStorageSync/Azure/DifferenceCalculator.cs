@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="DifferenceCalculator.cs" company="CatenaLogic">
-//   Copyright (c) 2014 - 2014 CatenaLogic. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace AzureStorageSync.Azure
+﻿namespace AzureStorageSync.Azure
 {
     using System;
     using System.Collections.Generic;
@@ -28,8 +21,8 @@ namespace AzureStorageSync.Azure
 
         public DifferenceCalculator(Context context, CloudStorageAccount storageAccount)
         {
-            Argument.IsNotNull(() => context);
-            Argument.IsNotNull(() => storageAccount);
+            ArgumentNullException.ThrowIfNull(context);
+            ArgumentNullException.ThrowIfNull(storageAccount);
 
             _context = context;
             _storageAccount = storageAccount;

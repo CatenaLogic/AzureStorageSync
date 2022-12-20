@@ -1,12 +1,6 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="CloudStorageAccountExtensions.cs" company="CatenaLogic">
-//   Copyright (c) 2014 - 2014 CatenaLogic. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace AzureStorageSync
+﻿namespace AzureStorageSync
 {
+    using System;
     using System.Threading.Tasks;
     using Catel;
     using Catel.Logging;
@@ -19,7 +13,7 @@ namespace AzureStorageSync
 
         public static async Task<CloudBlockBlob> GetBlobAsync(this CloudStorageAccount storageAccount, string path)
         {
-            Argument.IsNotNull(() => storageAccount);
+            ArgumentNullException.ThrowIfNull(storageAccount);
             Argument.IsNotNullOrWhitespace(() => path);
 
             var blobClient = storageAccount.CreateCloudBlobClient();

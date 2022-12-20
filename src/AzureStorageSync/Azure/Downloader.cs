@@ -1,12 +1,6 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Downloader.cs" company="CatenaLogic">
-//   Copyright (c) 2014 - 2014 CatenaLogic. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace AzureStorageSync.Azure
+﻿namespace AzureStorageSync.Azure
 {
+    using System;
     using System.Threading.Tasks;
     using Catel;
     using Catel.Logging;
@@ -21,7 +15,7 @@ namespace AzureStorageSync.Azure
 
         public Downloader(CloudStorageAccount storageAccount)
         {
-            Argument.IsNotNull(() => storageAccount);
+            ArgumentNullException.ThrowIfNull(storageAccount);
 
             _storageAccount = storageAccount;
         }
@@ -29,7 +23,7 @@ namespace AzureStorageSync.Azure
         [Time("File: {fileDescriptor}")]
         public async Task DownloadAsync(FileDescriptor fileDescriptor)
         {
-            Argument.IsNotNull(() => fileDescriptor);
+            ArgumentNullException.ThrowIfNull(fileDescriptor);
 
             Log.Info("Downloading '{0}'", fileDescriptor);
 
