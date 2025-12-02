@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/misc/">
+    <File Path="AzureStorageSync.sln.DotSettings" />
+    <File Path="MethodTimeLogger.cs" />
+    <File Path="nuget.config" />
+    <File Path="SolutionAssemblyInfo.cs" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="AzureStorageSync.Tests/AzureStorageSync.Tests.csproj" />
+    <Project Path="AzureStorageSync/AzureStorageSync.csproj" />
+  </Folder>
+</Solution>
