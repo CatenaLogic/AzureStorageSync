@@ -19,7 +19,7 @@
     </PackageReference>
     <PackageReference Include="MethodTimer.Fody" Version="3.2.3" PrivateAssets="all" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="NUnit" Version="4.3.2" PrivateAssets="all" />
     <PackageReference Include="NUnit3TestAdapter" Version="5.0.0">
       <PrivateAssets>all</PrivateAssets>
