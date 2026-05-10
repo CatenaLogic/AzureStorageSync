@@ -17,8 +17,6 @@
   <PropertyGroup>
     <UseWpf>false</UseWpf>
     <UseWindowsForms>false</UseWindowsForms>
-    
-    <ExtrasEnableImplicitWinFormsReferences>false</ExtrasEnableImplicitWinFormsReferences>
   </PropertyGroup>
 
   <PropertyGroup>
