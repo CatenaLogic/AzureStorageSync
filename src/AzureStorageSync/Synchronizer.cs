@@ -6,11 +6,12 @@
     using Azure;
     using Catel;
     using Catel.Logging;
+    using Microsoft.Extensions.Logging;
     using Microsoft.WindowsAzure.Storage;
 
     public static class Synchronizer
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+        private static readonly ILogger Logger = LogManager.GetLogger(typeof(Synchronizer));
 
         public static async Task<int> SyncAsync(Context context)
         {
@@ -18,17 +19,17 @@
 
             var storageAccount = CloudStorageAccount.Parse(context.ConnectionString);
 
-            Log.Info("Calculating differences");
+            Logger.LogInformation("Calculating differences");
 
             var differenceCalculator = new DifferenceCalculator(context, storageAccount);
             var fileDescriptors = await differenceCalculator.GetFileDescriptorsAsync();
             if (fileDescriptors.Count == 0)
             {
-                Log.Info("Found no differences, synchronization is not required");
+                Logger.LogInformation("Found no differences, synchronization is not required");
                 return 0;
             }
 
-            Log.Info($"Found {fileDescriptors.Count} differences, starting synchronization");
+            Logger.LogInformation($"Found {fileDescriptors.Count} differences, starting synchronization");
 
             var uploader = new Uploader(storageAccount);
             var downloader = new Downloader(storageAccount);
@@ -48,7 +49,7 @@
                         break;
 
                     case FileAction.Ignore:
-                        Log.Debug($"Ignoring file '{fileDescriptor}'");
+                        Logger.LogDebug($"Ignoring file '{fileDescriptor}'");
                         break;
 
                     default:

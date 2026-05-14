@@ -1,7 +1,5 @@
 ﻿namespace AzureStorageSync.Tests
 {
-    using Catel;
-    using Catel.Tests;
     using NUnit.Framework;
 
     [TestFixture]
@@ -10,7 +8,7 @@
         [TestCase]
         public void ThrowsExceptionForEmptyParameters()
         {
-            ExceptionTester.CallMethodAndExpectException<AzureStorageSyncException>(() => ArgumentParser.ParseArguments(string.Empty));
+            Assert.Throws<AzureStorageSyncException>(() => ArgumentParser.ParseArguments(string.Empty));
         }
 
         [TestCase]
@@ -57,13 +55,13 @@
         [TestCase]
         public void ThrowsExceptionForInvalidNumberOfArguments()
         {
-            ExceptionTester.CallMethodAndExpectException<AzureStorageSyncException>(() => ArgumentParser.ParseArguments("localDirectory -l logFilePath extraArg"));
+            Assert.Throws<AzureStorageSyncException>(() => ArgumentParser.ParseArguments("localDirectory -l logFilePath extraArg"));
         }
 
         [TestCase]
         public void ThrowsExceptionForUnknownArgument()
         {
-            ExceptionTester.CallMethodAndExpectException<AzureStorageSyncException>(() => ArgumentParser.ParseArguments("localDirectory -x logFilePath"));
+            Assert.Throws<AzureStorageSyncException>(() => ArgumentParser.ParseArguments("localDirectory -x logFilePath"));
         }
     }
 }

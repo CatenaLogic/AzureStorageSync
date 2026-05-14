@@ -10,11 +10,12 @@
     using Catel.Logging;
     using Catel.Threading;
     using MethodTimer;
+    using Microsoft.Extensions.Logging;
     using Microsoft.WindowsAzure.Storage;
 
     public class DifferenceCalculator
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+        private static readonly ILogger Logger = LogManager.GetLogger(typeof(DifferenceCalculator));
 
         private readonly Context _context;
         private readonly CloudStorageAccount _storageAccount;
@@ -33,7 +34,7 @@
         {
             var descriptors = new List<FileDescriptor>();
 
-            Log.Info("Calculating local => remote differences");
+            Logger.LogInformation("Calculating local => remote differences");
 
             var files = Directory.GetFiles(_context.LocalDirectory, "*.*", SearchOption.AllDirectories);
             foreach (var fileName in files)
@@ -102,7 +103,7 @@
             }
             catch (Exception ex)
             {
-                Log.Warning(ex, "Failed to fetch attributes, assuming file '{0}' does not exist", remoteFileName);
+                Logger.LogWarning(ex, "Failed to fetch attributes, assuming file '{0}' does not exist", remoteFileName);
                 return false;
             }
         }

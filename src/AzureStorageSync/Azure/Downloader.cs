@@ -5,11 +5,12 @@
     using Catel;
     using Catel.Logging;
     using MethodTimer;
+    using Microsoft.Extensions.Logging;
     using Microsoft.WindowsAzure.Storage;
 
     public class Downloader
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+        private static readonly ILogger Logger = LogManager.GetLogger(typeof(Downloader));
 
         private readonly CloudStorageAccount _storageAccount;
 
@@ -25,10 +26,10 @@
         {
             ArgumentNullException.ThrowIfNull(fileDescriptor);
 
-            Log.Info("Downloading '{0}'", fileDescriptor);
+            Logger.LogInformation("Downloading '{0}'", fileDescriptor);
 
 
-            Log.Warning("Downloading is not yet implemented, feel free to PR");
+            Logger.LogWarning("Downloading is not yet implemented, feel free to PR");
         }
     }
 }

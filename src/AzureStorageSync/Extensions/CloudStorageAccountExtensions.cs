@@ -4,12 +4,13 @@
     using System.Threading.Tasks;
     using Catel;
     using Catel.Logging;
+    using Microsoft.Extensions.Logging;
     using Microsoft.WindowsAzure.Storage;
     using Microsoft.WindowsAzure.Storage.Blob;
 
     public static class CloudStorageAccountExtensions
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+        private static readonly ILogger Logger = LogManager.GetLogger(typeof(CloudStorageAccountExtensions));
 
         public static async Task<CloudBlockBlob> GetBlobAsync(this CloudStorageAccount storageAccount, string path)
         {
@@ -25,7 +26,7 @@
             var container = blobClient.GetContainerReference(containerName);
             if (!await container.ExistsAsync())
             {
-                Log.Info("Creating container '{0}'", container);
+                Logger.LogInformation("Creating container '{0}'", container);
 
                 await container.CreateIfNotExistsAsync();
             }

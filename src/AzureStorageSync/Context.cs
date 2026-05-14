@@ -1,10 +1,11 @@
 ﻿namespace AzureStorageSync
 {
     using Catel.Logging;
+    using Microsoft.Extensions.Logging;
 
     public class Context
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+        private static readonly ILogger Logger = LogManager.GetLogger(typeof(Context));
 
         public Context()
         {
@@ -25,17 +26,17 @@
         {
             if (string.IsNullOrEmpty(LocalDirectory))
             {
-                throw Log.ErrorAndCreateException<AzureStorageSyncException>("Local directory is missing");
+                throw Logger.LogErrorAndCreateException<AzureStorageSyncException>("Local directory is missing");
             }
 
             if (string.IsNullOrEmpty(RemoteDirectory))
             {
-                throw Log.ErrorAndCreateException<AzureStorageSyncException>("Remote directory is missing");
+                throw Logger.LogErrorAndCreateException<AzureStorageSyncException>("Remote directory is missing");
             }
 
             if (string.IsNullOrEmpty(ConnectionString))
             {
-                throw Log.ErrorAndCreateException<AzureStorageSyncException>("Connection string name is missing");
+                throw Logger.LogErrorAndCreateException<AzureStorageSyncException>("Connection string name is missing");
             }
         }
     }

@@ -1,7 +1,5 @@
 ﻿namespace AzureStorageSync.Tests
 {
-    using Catel;
-    using Catel.Tests;
     using NUnit.Framework;
 
     public class ContextFacts
@@ -27,7 +25,7 @@
             {
                 var context = new Context();
 
-                ExceptionTester.CallMethodAndExpectException<AzureStorageSyncException>(() => context.ValidateContext());
+                Assert.Throws<AzureStorageSyncException>(() => context.ValidateContext());
             }
 
             [TestCase]
@@ -38,7 +36,7 @@
                     LocalDirectory = @"c:\source\",
                 };
 
-                ExceptionTester.CallMethodAndExpectException<AzureStorageSyncException>(() => context.ValidateContext());
+                Assert.Throws<AzureStorageSyncException>(() => context.ValidateContext());
             }
 
             [TestCase]
@@ -50,7 +48,7 @@
                     RemoteDirectory = @"/remote/mydir"
                 };
 
-                ExceptionTester.CallMethodAndExpectException<AzureStorageSyncException>(() => context.ValidateContext());
+                Assert.Throws<AzureStorageSyncException>(() => context.ValidateContext());
             }
 
             [TestCase]

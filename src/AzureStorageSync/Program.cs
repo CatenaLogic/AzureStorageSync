@@ -1,30 +1,49 @@
 ﻿namespace AzureStorageSync
 {
     using System;
-    using Catel.Logging;
-    using Logging;
+    using Catel;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using Orc;
+    using Serilog;
+    using Serilog.Events;
 
     internal class Program
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
-
         private static int Main(string[] args)
         {
-#if DEBUG
-            LogManager.AddDebugListener(true);
-#endif
+            var settings = new HostApplicationBuilderSettings
+            {
+                Configuration = new ConfigurationManager()
+            };
 
-            var consoleLogListener = new OutputLogListener();
-            LogManager.AddListener(consoleLogListener);
+            settings.Configuration.AddEnvironmentVariables();
+
+            var builder = Host.CreateEmptyApplicationBuilder(settings);
+
+            // Logging
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.Console()
+                .CreateLogger();
+
+            var services = builder.Services;
+
+            services.AddSerilog();
+            services.AddLogging();
+
+            services.AddCatelCore();
+
+            services.AddOrcFileSystem();
 
             try
             {
-                HelpWriter.WriteAppHeader(s => Log.Write(LogEvent.Info, s));
+                HelpWriter.WriteAppHeader(s => Log.Logger.Write(LogEventLevel.Information, s));
 
                 var context = ArgumentParser.ParseArguments(args);
                 if (context.IsHelp)
                 {
-                    HelpWriter.WriteHelp(s => Log.Write(LogEvent.Info, s));
+                    HelpWriter.WriteHelp(s => Log.Write(LogEventLevel.Information, s));
 
                     WaitForKeyPress();
 
@@ -54,8 +73,8 @@
 
         private static void WaitForKeyPress()
         {
-            Log.Info(string.Empty);
-            Log.Info("Press any key to continue");
+            Log.Logger.Information(string.Empty);
+            Log.Logger.Information("Press any key to continue");
 
             Console.ReadKey();
         }

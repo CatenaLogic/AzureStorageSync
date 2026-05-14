@@ -4,10 +4,11 @@
     using System.Collections.Generic;
     using System.Linq;
     using Catel.Logging;
+    using Microsoft.Extensions.Logging;
 
     public static class ArgumentParser
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+        private static readonly ILogger Logger = LogManager.GetLogger(typeof(ArgumentParser));
 
         public static Context ParseArguments(string commandLineArguments)
         {
@@ -25,7 +26,7 @@
 
             if (commandLineArguments.Count == 0)
             {
-                throw Log.ErrorAndCreateException<AzureStorageSyncException>("Invalid number of arguments");
+                throw Logger.LogErrorAndCreateException<AzureStorageSyncException>("Invalid number of arguments");
             }
 
             var firstArgument = commandLineArguments.First();
@@ -37,7 +38,7 @@
 
             if (commandLineArguments.Count < 3)
             {
-                throw Log.ErrorAndCreateException<AzureStorageSyncException>("Invalid number of arguments");
+                throw Logger.LogErrorAndCreateException<AzureStorageSyncException>("Invalid number of arguments");
             }
 
             context.LocalDirectory = commandLineArguments[0];
@@ -64,7 +65,7 @@
                     continue;
                 }
 
-                throw Log.ErrorAndCreateException<AzureStorageSyncException>("Could not parse command line parameter '{0}'.", name);
+                throw Logger.LogErrorAndCreateException<AzureStorageSyncException>("Could not parse command line parameter '{0}'.", name);
             }
 
             return context;
@@ -89,7 +90,7 @@
         {
             if (namedArguments.Count.IsOdd())
             {
-                throw Log.ErrorAndCreateException<AzureStorageSyncException>("Could not parse arguments: '{0}'.", string.Join(" ", commandLineArguments));
+                throw Logger.LogErrorAndCreateException<AzureStorageSyncException>("Could not parse arguments: '{0}'.", string.Join(" ", commandLineArguments));
             }
         }
 

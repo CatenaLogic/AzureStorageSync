@@ -5,11 +5,12 @@
     using Catel;
     using Catel.Logging;
     using MethodTimer;
+    using Microsoft.Extensions.Logging;
     using Microsoft.WindowsAzure.Storage;
 
     public class Uploader
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+        private static readonly ILogger Logger = LogManager.GetLogger(typeof(Uploader));
 
         private readonly CloudStorageAccount _storageAccount;
 
@@ -25,7 +26,7 @@
         {
             ArgumentNullException.ThrowIfNull(fileDescriptor);
 
-            Log.Info("Uploading '{0}'", fileDescriptor);
+            Logger.LogInformation("Uploading '{0}'", fileDescriptor);
 
             var blob = await _storageAccount.GetBlobAsync(fileDescriptor.RemoteFileName);
 
